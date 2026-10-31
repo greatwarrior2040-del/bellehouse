@@ -261,4 +261,32 @@ form.addEventListener('submit',function(e){
 });
 
 }
+
+/* ---------- Filtres réalisations ---------- */
+(function(){
+  var bar=document.querySelector('.filter-bar');
+  if(!bar) return;
+  var pills=Array.prototype.slice.call(bar.querySelectorAll('.fpill'));
+  var cards=Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
+  pills.forEach(function(p){
+    p.addEventListener('click',function(){
+      pills.forEach(function(q){q.setAttribute('aria-pressed','false')});
+      p.setAttribute('aria-pressed','true');
+      var f=p.getAttribute('data-filter');
+      cards.forEach(function(c){
+        c.style.display=(f==='tous'||c.getAttribute('data-cat')===f)?'':'none';
+      });
+    });
+  });
+})();
+
+/* ---------- Retour en haut ---------- */
+(function(){
+  var btn=document.getElementById('toTop');
+  if(!btn) return;
+  var onScroll=function(){btn.classList.toggle('show',window.scrollY>700)};
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+})();
 })();

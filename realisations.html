@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nos réalisations | Belle House Niger, constructions à Niamey</title>
-<meta name="description" content="Découvrez le savoir-faire de Belle House Niger : villas, immeubles, hangars métalliques et chantiers à Niamey, Niger.">
+<meta name="description" content="Découvrez le savoir-faire de Belle House Niger : villas, immeubles, hangars métalliques et chantiers à Niamey, Niger. Filtrez par type d'ouvrage.">
 <meta name="theme-color" content="#0B1E32">
 <link rel="canonical" href="https://www.bellehouse-niger.com/realisations.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -52,12 +52,12 @@
   </a>
   <nav aria-label="Navigation principale">
     <ul class="nav-links">
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="expertises.html">Expertises</a></li>
-      <li><a href="realisations.html" aria-current="page">Réalisations</a></li>
-      <li><a href="entreprise.html">L'entreprise</a></li>
+      <li><a href="entreprise.html">Qui sommes-nous ?</a></li>
+      <li><a href="expertises.html">Nos expertises</a></li>
+      <li><a href="realisations.html" aria-current="page">Nos réalisations</a></li>
+      <li><a href="engagements.html">Nos engagements</a></li>
       <li><a href="immobilier.html">Immobilier</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="recrutement.html">Recrutement</a></li>
     </ul>
   </nav>
   <a class="btn" href="contact.html">Demander un devis</a>
@@ -67,11 +67,12 @@
 </header>
 
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="index.html">Accueil</a>
-  <a href="expertises.html">Expertises</a>
-  <a href="realisations.html">Réalisations</a>
-  <a href="entreprise.html">L'entreprise</a>
+  <a href="entreprise.html">Qui sommes-nous ?</a>
+  <a href="expertises.html">Nos expertises</a>
+  <a href="realisations.html">Nos réalisations</a>
+  <a href="engagements.html">Nos engagements</a>
   <a href="immobilier.html">Immobilier</a>
+  <a href="recrutement.html">Recrutement</a>
   <a href="contact.html">Contact</a>
   <a href="contact.html" style="color:var(--bh)">Demander un devis</a>
 </div>
@@ -82,47 +83,75 @@
     <div class="bg" style="background-image:url('assets/hero-act1.jpg')" aria-hidden="true"></div>
     <div class="scrim" aria-hidden="true"></div>
     <div class="inner">
-      <p class="kicker">Réalisations</p>
-      <h1>Ce que nous savons faire.</h1>
+      <p class="kicker">Nos réalisations</p>
+      <h1>Nos réalisations.</h1>
       <p class="sub">Du résidentiel à l'industriel, un aperçu de notre savoir-faire à Niamey et au Niger.</p>
-    </div>
-  </section>
-
-  <section class="sec realisations on-dark">
-    <div class="wrap">
-      <div class="rea-grid">
-        <article class="rea-card" data-reveal>
-          <div class="ph"><img src="assets/rea-villa.jpg" alt="Villa duplex moderne à Niamey" loading="lazy" decoding="async"></div>
-          <div class="cap"><p class="tag">Résidentiel</p><h3>Villa duplex</h3><p>Volumes blancs, brise-soleil bois, jardin d'acacias. Niamey.</p></div>
-        </article>
-        <article class="rea-card" data-reveal style="--rd:.08s">
-          <div class="ph"><img src="assets/rea-immeuble.jpg" alt="Immeuble R+3 en béton et moucharabieh" loading="lazy" decoding="async"></div>
-          <div class="cap"><p class="tag">Collectif</p><h3>Immeuble R+3</h3><p>Béton, verre et moucharabieh. Fraîcheur naturelle, lumière maîtrisée.</p></div>
-        </article>
-        <article class="rea-card" data-reveal style="--rd:.16s">
-          <div class="ph"><img src="assets/rea-hangar.jpg" alt="Hangar à charpente métallique" loading="lazy" decoding="async"></div>
-          <div class="cap"><p class="tag">Industriel</p><h3>Hangar métallique</h3><p>Charpente acier Belle House, grande portée, montage rapide.</p></div>
-        </article>
-        <article class="rea-card" data-reveal>
-          <div class="ph"><img src="assets/hero-act4.jpg" alt="Villa contemporaine au crépuscule à Niamey" loading="lazy" decoding="async"></div>
-          <div class="cap"><p class="tag">Résidentiel</p><h3>Villa crépuscule</h3><p>Lignes contemporaines, lumière chaude. Livrée clé en main.</p></div>
-        </article>
-        <article class="rea-card" data-reveal style="--rd:.08s">
-          <div class="ph"><img src="assets/hero-act1.jpg" alt="Chantier de gros œuvre vu du ciel" loading="lazy" decoding="async"></div>
-          <div class="cap"><p class="tag">Chantier</p><h3>Gros œuvre R+4</h3><p>Structure béton armé, grue et équipes Belle House sur site.</p></div>
-        </article>
-        <article class="rea-card" data-reveal style="--rd:.16s">
-          <div class="ph"><img src="assets/sec-architecte.jpg" alt="Études et plans sur chantier" loading="lazy" decoding="async"></div>
-          <div class="cap"><p class="tag">Études</p><h3>Conception</h3><p>Le plan avant la pierre : études et suivi d'exécution intégrés.</p></div>
-        </article>
-      </div>
-      <p class="rea-note" data-reveal>Visuels illustratifs : nos photos de chantiers arrivent très vite sur cette page.</p>
     </div>
   </section>
 
   <section class="sec">
     <div class="wrap">
-      <div class="cta-band" data-reveal>
+      <div class="filter-bar" data-reveal role="group" aria-label="Filtrer les réalisations">
+        <span class="filter-label">Filtrer par</span>
+        <div class="filter-pills">
+          <button class="fpill" data-filter="tous" aria-pressed="true">Tous</button>
+          <button class="fpill" data-filter="residentiel" aria-pressed="false">Résidentiel</button>
+          <button class="fpill" data-filter="collectif" aria-pressed="false">Collectif</button>
+          <button class="fpill" data-filter="industriel" aria-pressed="false">Industriel</button>
+        </div>
+      </div>
+      <div class="rea-grid">
+        <article class="rea-card" data-cat="residentiel" data-reveal>
+          <div class="ph"><img src="assets/rea-villa.jpg" alt="Villa duplex moderne à Niamey" loading="lazy" decoding="async"></div>
+          <div class="cap">
+            <div class="card-tags"><span class="tag">Gros œuvre</span></div>
+            <h3>Villa duplex</h3>
+            <p class="rea-meta">Résidentiel · Niamey</p>
+          </div>
+        </article>
+        <article class="rea-card" data-cat="residentiel" data-reveal style="--rd:.08s">
+          <div class="ph"><img src="assets/hero-act4.jpg" alt="Villa contemporaine au crépuscule à Niamey" loading="lazy" decoding="async"></div>
+          <div class="cap">
+            <div class="card-tags"><span class="tag">Gros œuvre</span></div>
+            <h3>Villa crépuscule</h3>
+            <p class="rea-meta">Résidentiel · Niamey</p>
+          </div>
+        </article>
+        <article class="rea-card" data-cat="collectif" data-reveal style="--rd:.16s">
+          <div class="ph"><img src="assets/rea-immeuble.jpg" alt="Immeuble R+3 en béton et moucharabieh" loading="lazy" decoding="async"></div>
+          <div class="cap">
+            <div class="card-tags"><span class="tag">Gros œuvre</span></div>
+            <h3>Immeuble R+3</h3>
+            <p class="rea-meta">Collectif · Niamey</p>
+          </div>
+        </article>
+        <article class="rea-card" data-cat="collectif" data-reveal>
+          <div class="ph"><img src="assets/hero-act1.jpg" alt="Chantier de gros œuvre vu du ciel" loading="lazy" decoding="async"></div>
+          <div class="cap">
+            <div class="card-tags"><span class="tag">Gros œuvre</span></div>
+            <h3>Gros œuvre R+4</h3>
+            <p class="rea-meta">Collectif · Niamey</p>
+          </div>
+        </article>
+        <article class="rea-card" data-cat="industriel" data-reveal style="--rd:.08s">
+          <div class="ph"><img src="assets/rea-hangar.jpg" alt="Hangar à charpente métallique" loading="lazy" decoding="async"></div>
+          <div class="cap">
+            <div class="card-tags"><span class="tag">Charpente métal</span></div>
+            <h3>Hangar métallique</h3>
+            <p class="rea-meta">Industriel · Niamey</p>
+          </div>
+        </article>
+        <article class="rea-card" data-cat="industriel" data-reveal style="--rd:.16s">
+          <div class="ph"><img src="assets/hero-act3.jpg" alt="Soudure dans l'atelier de construction métallique" loading="lazy" decoding="async"></div>
+          <div class="cap">
+            <div class="card-tags"><span class="tag">Charpente métal</span></div>
+            <h3>Atelier acier</h3>
+            <p class="rea-meta">Industriel · Niamey</p>
+          </div>
+        </article>
+      </div>
+      <p class="rea-note" data-reveal>Visuels illustratifs : nos photos de chantiers arrivent très vite sur cette page.</p>
+      <div class="cta-band" data-reveal style="margin-top:44px">
         <h2>Votre projet mérite la même exigence.</h2>
         <p>Décrivez-nous votre projet, nous le chiffrons avec précision.</p>
         <a class="btn" href="contact.html">Demander un devis</a>
@@ -132,39 +161,49 @@
 
 </main>
 
-<footer>
-  <div class="foot-grid">
-    <div class="brand">
-      <svg aria-label="Logo Belle House Niger"><use href="#bh-logo"/></svg>
-      <p class="foot-tag">Bâtisseur de Confiance</p>
-    </div>
+<footer class="footer-dark">
+  <div class="foot-top">
     <div>
-      <h4>Navigation</h4>
-      <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="expertises.html">Expertises</a></li>
-        <li><a href="realisations.html">Réalisations</a></li>
-        <li><a href="entreprise.html">L'entreprise</a></li>
-        <li><a href="immobilier.html">Immobilier</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
+      <a class="foot-logo" href="index.html" aria-label="Belle House Niger, accueil"><svg aria-hidden="true"><use href="#bh-logo"/></svg></a>
+      <p class="foot-desc">Belle House Niger réunit quatre métiers sous un même toit : le gros œuvre, l'architecture, l'immobilier et la construction métallique. Un seul interlocuteur, de l'étude à la remise des clés.</p>
     </div>
-    <div>
-      <h4>Expertises</h4>
-      <ul>
-        <li><a href="expertises.html">BTP · Gros œuvre</a></li>
-        <li><a href="expertises.html">Architecture</a></li>
-        <li><a href="immobilier.html">Immobilier</a></li>
-        <li><a href="expertises.html">Construction métallique</a></li>
-      </ul>
+    <div class="foot-cols">
+      <div>
+        <h4>L'entreprise</h4>
+        <ul>
+          <li><a href="entreprise.html">Qui sommes-nous ?</a></li>
+          <li><a href="engagements.html">Nos engagements</a></li>
+          <li><a href="recrutement.html">Recrutement</a></li>
+          <li><a href="immobilier.html">Immobilier</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Nos expertises</h4>
+        <ul>
+          <li><a href="expertises.html">BTP · Gros œuvre</a></li>
+          <li><a href="expertises.html">Architecture</a></li>
+          <li><a href="expertises.html">Construction métallique</a></li>
+          <li><a href="realisations.html">Nos réalisations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">Demander un devis</a></li>
+          <li><a href="contact.html">Questions fréquentes</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© 2026 Belle House Niger · Niamey, Niger</span>
-    <span>Zone d'intervention : Niamey et l'ensemble du Niger.</span>
-    <span>Visuels illustratifs générés par IA, photos réelles à venir.</span>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <span>© Belle House Niger 2026 · Niamey, Niger</span>
   </div>
 </footer>
+
+<a class="project-tab" href="contact.html">Vous avez un projet ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+<button class="to-top" id="toTop" aria-label="Retour en haut de page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
 <script src="js/main.js" defer></script>
 </body>
