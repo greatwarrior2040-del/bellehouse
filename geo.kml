@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Belle House Niger</name>
+    <description>BTP, architecture, immobilier et construction métallique à Niamey, Niger. Bâtisseur de Confiance.</description>
+    <Placemark>
+      <name>Belle House Niger</name>
+      <description>Bâtisseur de Confiance : BTP, architecture, immobilier, construction métallique. Un seul interlocuteur, de l'étude à la remise des clés.</description>
+      <Point>
+        <coordinates>2.1254,13.5116,0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>
