@@ -32,13 +32,16 @@
   <nav aria-label="Navigation principale">
     <ul class="nav-links">
       <li><a href="entreprise.html">Qui sommes-nous ?</a></li>
-      <li><a href="expertises.html">Nos expertises</a></li>
+      <li><a href="expertises.html">Nos savoir-faire</a></li>
       <li><a href="realisations.html" aria-current="page">Nos réalisations</a></li>
       <li><a href="engagements.html">Nos engagements</a></li>
       <li><a href="immobilier.html">Immobilier</a></li>
       <li><a href="recrutement.html">Recrutement</a></li>
+      <li><a href="medias.html">Médias</a></li>
     </ul>
   </nav>
+  <span class="nav-lang">FR</span>
+  <button class="nav-search" id="searchOpen" aria-label="Rechercher"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
   <a class="btn" href="contact.html">Demander un devis</a>
   <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -47,11 +50,12 @@
 
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <a href="entreprise.html">Qui sommes-nous ?</a>
-  <a href="expertises.html">Nos expertises</a>
+  <a href="expertises.html">Nos savoir-faire</a>
   <a href="realisations.html">Nos réalisations</a>
   <a href="engagements.html">Nos engagements</a>
   <a href="immobilier.html">Immobilier</a>
   <a href="recrutement.html">Recrutement</a>
+  <a href="medias.html">Médias</a>
   <a href="contact.html">Contact</a>
   <a href="contact.html" style="color:var(--bh)">Demander un devis</a>
 </div>
@@ -71,63 +75,89 @@
   <section class="sec">
     <div class="wrap">
       <div class="filter-bar" data-reveal role="group" aria-label="Filtrer les réalisations">
-        <span class="filter-label">Filtrer par</span>
-        <div class="filter-pills">
-          <button class="fpill" data-filter="tous" aria-pressed="true">Tous</button>
-          <button class="fpill" data-filter="residentiel" aria-pressed="false">Résidentiel</button>
-          <button class="fpill" data-filter="collectif" aria-pressed="false">Collectif</button>
-          <button class="fpill" data-filter="industriel" aria-pressed="false">Industriel</button>
+        <div class="filter-selects">
+          <div class="fselect">
+            <label for="fOuvrage">Type d'ouvrage</label>
+            <select id="fOuvrage">
+              <option value="tous">Tous</option>
+              <option value="residentiel">Résidentiel</option>
+              <option value="collectif">Collectif</option>
+              <option value="industriel">Industriel</option>
+            </select>
+          </div>
+          <div class="fselect">
+            <label for="fPrestation">Type de prestation</label>
+            <select id="fPrestation">
+              <option value="tous">Toutes</option>
+              <option value="gros-oeuvre">Gros œuvre</option>
+              <option value="charpente-metal">Charpente métal</option>
+              <option value="architecture">Architecture</option>
+            </select>
+          </div>
+          <div class="fselect">
+            <label for="fMateriau">Matériaux</label>
+            <select id="fMateriau">
+              <option value="tous">Tous</option>
+              <option value="beton">Béton</option>
+              <option value="acier">Acier</option>
+            </select>
+          </div>
+          <div class="filter-actions">
+            <button class="btn-valider" id="fValider">Valider</button>
+            <button class="btn-effacer" id="fEffacer">&#215; Effacer</button>
+          </div>
         </div>
       </div>
-      <div class="rea-grid">
-        <article class="rea-card" data-cat="residentiel" data-reveal>
+      <p class="rea-empty" id="reaEmpty" hidden>Aucune réalisation pour ces critères. <button class="btn-effacer" id="reaReset">Réinitialiser les filtres</button></p>
+      <div class="rea-grid" id="reaGrid">
+        <a class="rea-card" href="realisation-villa-duplex.html" data-ouvrage="residentiel" data-prestation="gros-oeuvre" data-materiau="beton" data-reveal>
           <div class="ph"><img src="assets/rea-villa.jpg" alt="Villa duplex moderne à Niamey" loading="lazy" decoding="async"></div>
           <div class="cap">
-            <div class="card-tags"><span class="tag">Gros œuvre</span></div>
+            <div class="card-tags"><span class="chip">Gros œuvre</span><span class="chip alt">Béton</span></div>
             <h3>Villa duplex</h3>
             <p class="rea-meta">Résidentiel · Niamey</p>
           </div>
-        </article>
-        <article class="rea-card" data-cat="residentiel" data-reveal style="--rd:.08s">
+        </a>
+        <a class="rea-card" href="realisation-villa-contemporaine.html" data-ouvrage="residentiel" data-prestation="gros-oeuvre" data-materiau="beton" data-reveal style="--rd:.8s">
           <div class="ph"><img src="assets/hero-act4.jpg" alt="Villa contemporaine au crépuscule à Niamey" loading="lazy" decoding="async"></div>
           <div class="cap">
-            <div class="card-tags"><span class="tag">Gros œuvre</span></div>
-            <h3>Villa crépuscule</h3>
+            <div class="card-tags"><span class="chip">Gros œuvre</span><span class="chip alt">Béton</span></div>
+            <h3>Villa contemporaine</h3>
             <p class="rea-meta">Résidentiel · Niamey</p>
           </div>
-        </article>
-        <article class="rea-card" data-cat="collectif" data-reveal style="--rd:.16s">
-          <div class="ph"><img src="assets/rea-immeuble.jpg" alt="Immeuble R+3 en béton et moucharabieh" loading="lazy" decoding="async"></div>
+        </a>
+        <a class="rea-card" href="realisation-immeuble-r3.html" data-ouvrage="collectif" data-prestation="gros-oeuvre" data-materiau="beton" data-reveal style="--rd:.16s">
+          <div class="ph"><img src="assets/rea-immeuble.jpg" alt="Immeuble R+3 en béton à Niamey" loading="lazy" decoding="async"></div>
           <div class="cap">
-            <div class="card-tags"><span class="tag">Gros œuvre</span></div>
+            <div class="card-tags"><span class="chip">Gros œuvre</span><span class="chip alt">Béton</span></div>
             <h3>Immeuble R+3</h3>
             <p class="rea-meta">Collectif · Niamey</p>
           </div>
-        </article>
-        <article class="rea-card" data-cat="collectif" data-reveal>
-          <div class="ph"><img src="assets/hero-act1.jpg" alt="Chantier de gros œuvre vu du ciel" loading="lazy" decoding="async"></div>
+        </a>
+        <a class="rea-card" href="realisation-chantier-r4.html" data-ouvrage="collectif" data-prestation="gros-oeuvre" data-materiau="beton" data-reveal>
+          <div class="ph"><img src="assets/hero-act1.jpg" alt="Chantier de gros œuvre vu du ciel à Niamey" loading="lazy" decoding="async"></div>
           <div class="cap">
-            <div class="card-tags"><span class="tag">Gros œuvre</span></div>
-            <h3>Gros œuvre R+4</h3>
+            <div class="card-tags"><span class="chip">Gros œuvre</span><span class="chip alt">Béton</span></div>
+            <h3>Chantier gros œuvre R+4</h3>
             <p class="rea-meta">Collectif · Niamey</p>
           </div>
-        </article>
-        <article class="rea-card" data-cat="industriel" data-reveal style="--rd:.08s">
-          <div class="ph"><img src="assets/rea-hangar.jpg" alt="Hangar à charpente métallique" loading="lazy" decoding="async"></div>
+        </a>
+        <a class="rea-card" href="realisation-hangar-metallique.html" data-ouvrage="industriel" data-prestation="charpente-metal" data-materiau="acier" data-reveal style="--rd:.8s">
+          <div class="ph"><img src="assets/rea-hangar.jpg" alt="Hangar à charpente métallique à Niamey" loading="lazy" decoding="async"></div>
           <div class="cap">
-            <div class="card-tags"><span class="tag">Charpente métal</span></div>
+            <div class="card-tags"><span class="chip">Charpente métal</span><span class="chip alt">Acier</span></div>
             <h3>Hangar métallique</h3>
             <p class="rea-meta">Industriel · Niamey</p>
           </div>
-        </article>
-        <article class="rea-card" data-cat="industriel" data-reveal style="--rd:.16s">
+        </a>
+        <a class="rea-card" href="realisation-atelier-acier.html" data-ouvrage="industriel" data-prestation="charpente-metal" data-materiau="acier" data-reveal style="--rd:.16s">
           <div class="ph"><img src="assets/hero-act3.jpg" alt="Soudure dans l'atelier de construction métallique" loading="lazy" decoding="async"></div>
           <div class="cap">
-            <div class="card-tags"><span class="tag">Charpente métal</span></div>
-            <h3>Atelier acier</h3>
+            <div class="card-tags"><span class="chip">Charpente métal</span><span class="chip alt">Acier</span></div>
+            <h3>Atelier de construction métallique</h3>
             <p class="rea-meta">Industriel · Niamey</p>
           </div>
-        </article>
+        </a>
       </div>
       <p class="rea-note" data-reveal>Visuels illustratifs : nos photos de chantiers arrivent très vite sur cette page.</p>
       <div class="cta-band" data-reveal style="margin-top:44px">
@@ -145,29 +175,32 @@
     <div>
       <a class="foot-logo-badge" href="index.html" aria-label="Belle House Niger, accueil"><img src="assets/logo-bellehouse.png" alt="Belle House Niger, Bâtisseur de Confiance" width="105" height="125"></a>
       <p class="foot-desc">Belle House Niger réunit quatre métiers sous un même toit : le gros œuvre, l'architecture, l'immobilier et la construction métallique. Un seul interlocuteur, de l'étude à la remise des clés.</p>
+      <p class="foot-desc" style="margin-top:14px">Président : Moise AKABA · Koubia, Niamey, Niger</p>
     </div>
     <div class="foot-cols">
       <div>
-        <h4>L'entreprise</h4>
+        <h4>Qui sommes-nous ?</h4>
         <ul>
-          <li><a href="entreprise.html">Qui sommes-nous ?</a></li>
+          <li><a href="entreprise.html">L'entreprise</a></li>
           <li><a href="engagements.html">Nos engagements</a></li>
           <li><a href="recrutement.html">Recrutement</a></li>
-          <li><a href="immobilier.html">Immobilier</a></li>
+          <li><a href="medias.html">Médias</a></li>
         </ul>
       </div>
       <div>
-        <h4>Nos expertises</h4>
+        <h4>Nos savoir-faire</h4>
         <ul>
+          <li><a href="realisations.html">Nos réalisations</a></li>
           <li><a href="expertises.html">BTP · Gros œuvre</a></li>
           <li><a href="expertises.html">Architecture</a></li>
           <li><a href="expertises.html">Construction métallique</a></li>
-          <li><a href="realisations.html">Nos réalisations</a></li>
+          <li><a href="immobilier.html">Immobilier</a></li>
         </ul>
       </div>
       <div>
         <h4>Contact</h4>
         <ul>
+          <li><a href="tel:+22792085050">+227 92 08 50 50</a></li>
           <li><a href="contact.html">Demander un devis</a></li>
           <li><a href="contact.html">Questions fréquentes</a></li>
           <li><a href="mentions-legales.html">Mentions légales</a></li>
@@ -177,10 +210,20 @@
   </div>
   <div class="foot-bottom">
     <a href="mentions-legales.html">Mentions légales</a>
-    <span>© Belle House Niger 2026 · Niamey, Niger</span>
+    <span>© Belle House Niger 2026 · Koubia, Niamey, Niger</span>
   </div>
 </footer>
 
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Recherche">
+  <button class="search-close" id="searchClose" aria-label="Fermer la recherche">&times;</button>
+  <input type="search" id="searchInput" placeholder="Rechercher&hellip;" aria-label="Rechercher" autocomplete="off">
+  <div class="search-results" id="searchResults"></div>
+</div>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Gestion des cookies">
+  <h3>Gestion des cookies</h3>
+  <p>Nous utilisons des cookies techniques pour le bon fonctionnement du site. En poursuivant votre navigation, vous les acceptez.</p>
+  <button id="cookieOk">OK pour moi</button>
+</div>
 <nav class="cta-dock" aria-label="Contact rapide">
   <button class="dock-btn" id="chatOpen" aria-haspopup="dialog">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>Chatbot IA</span>
@@ -197,7 +240,6 @@
   <div class="chat-msgs" id="chatMsgs"></div>
   <form class="chat-form" id="chatForm"><input id="chatInput" type="text" placeholder="Écrivez votre message&hellip;" autocomplete="off" aria-label="Votre message"><button type="submit">Envoyer</button></form>
 </div>
-<button class="to-top" aria-label="Retour en haut">&uarr;</button>
 <button class="to-top" id="toTop" aria-label="Retour en haut de page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
 <script src="js/main.js" defer></script>

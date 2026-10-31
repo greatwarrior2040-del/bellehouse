@@ -175,44 +175,90 @@ var t0=performance.now();
   if(loadK<1){requestAnimationFrame(loadRamp)}
   else if(scrubOn){onScroll()}
 
-/* ---------- Chatbot IA ---------- */
-(function(){
-  var openBtn=document.getElementById('chatOpen'),panel=document.getElementById('chatPanel'),
-      closeBtn=document.getElementById('chatClose'),form=document.getElementById('chatForm'),
-      input=document.getElementById('chatInput'),msgs=document.getElementById('chatMsgs');
-  if(!openBtn||!panel||!form) return;
-  var history=[],welcomed=false;
-  function addMsg(text,who){
-    var d=document.createElement('div');d.className='msg '+who;d.textContent=text;
-    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
-  }
-  openBtn.addEventListener('click',function(){
-    panel.hidden=!panel.hidden;
-    if(!panel.hidden&&!welcomed){welcomed=true;
-      addMsg("Bonjour, je suis l'assistant Belle House. Une question sur nos constructions, l'architecture ou l'immobilier \u00e0 Niamey ?",'bot');}
-  });
-  closeBtn.addEventListener('click',function(){panel.hidden=true;});
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var t=input.value.trim();if(!t)return;
-    addMsg(t,'user');input.value='';
-    history.push({role:'user',content:t});
-    var typing=addMsg('...','bot typing');
-    fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})})
-    .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
-    .then(function(x){
-      typing.remove();
-      if(x.ok&&x.d.reply){addMsg(x.d.reply,'bot');history.push({role:'assistant',content:x.d.reply});}
-      else{addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');}
-    })
-    .catch(function(){typing.remove();addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');});
-  });
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.querySelectorAll('.bg video').forEach(function(v){v.pause();});
-  }
 })();
+/* ---------- Nav ---------- */
+var nav=document.getElementById('nav');
+function onNav(){nav.classList.toggle('scrolled',window.scrollY>window.innerHeight*0.72)}
+window.addEventListener('scroll',onNav,{passive:true});onNav();
+var burger=document.getElementById('burger'),menu=document.getElementById('mobileMenu');
+function setMenu(open){
+  document.body.classList.toggle('menu-open',open);
+  burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu');
+  menu.setAttribute('aria-hidden',!open);
+}
+burger.addEventListener('click',function(){setMenu(!document.body.classList.contains('menu-open'))});
+menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
 
-})();
+/* ---------- Révélations ---------- */
+var revealEls=document.querySelectorAll('[data-reveal]');
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+  revealEls.forEach(function(el){io.observe(el)});
+  var steps=document.getElementById('steps');
+  new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){steps.classList.add('in')}})},{threshold:0.2}).observe(steps);
+}else{
+  revealEls.forEach(function(el){el.classList.add('in')});
+  document.getElementById('steps').classList.add('in');
+}
+
+
+if(document.getElementById('holdBtn')){
+/* ---------- Moment interactif : poser la première pierre ---------- */
+var pierre=document.getElementById('pierre'),
+    holdBtn=document.getElementById('holdBtn'),
+    fillBar=document.getElementById('fillBar'),
+    holdLabel=document.getElementById('holdLabel'),
+    houseStage=document.getElementById('houseStage'),
+    reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches,
+    hp=0,holding=false,holdRaf=null,holdDone=false,lastT=0;
+function completeHold(){
+  if(holdDone)return;holdDone=true;holding=false;
+  houseStage.classList.add('done');pierre.classList.add('done');
+  holdLabel.textContent='Construit';
+  fillBar.style.transform='scaleX(1)';
+}
+function holdLoop(t){
+  var dt=Math.min(80,t-(lastT||t));lastT=t;
+  if(holding)hp=Math.min(1,hp+dt/1600);
+  else hp=Math.max(0,hp-dt/700);
+  fillBar.style.transform='scaleX('+hp.toFixed(3)+')';
+  if(hp>=1){completeHold();holdRaf=null;lastT=0;return}
+  if(hp>0||holding)holdRaf=requestAnimationFrame(holdLoop);
+  else{holdRaf=null;lastT=0}
+}
+function holdStart(e){if(holdDone)return;if(e.cancelable)e.preventDefault();holding=true;if(holdRaf===null)holdRaf=requestAnimationFrame(holdLoop)}
+function holdEnd(){holding=false}
+if(reduceMotion){
+  holdBtn.addEventListener('click',completeHold);
+}else{
+  holdBtn.addEventListener('pointerdown',holdStart);
+  holdBtn.addEventListener('pointerup',holdEnd);
+  holdBtn.addEventListener('pointercancel',holdEnd);
+  holdBtn.addEventListener('pointerleave',holdEnd);
+  holdBtn.addEventListener('contextmenu',function(e){e.preventDefault()});
+}
+
+
+}
+if(document.getElementById('devisForm')){
+/* ---------- Formulaire ---------- */
+var form=document.getElementById('devisForm');
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var nom=document.getElementById('f-nom'),tel=document.getElementById('f-tel'),ok=true;
+  [nom,tel].forEach(function(inp){
+    var bad=!inp.value.trim()||(inp.type==='tel'&&inp.value.replace(/\D/g,'').length<8);
+    inp.style.borderColor=bad?'#C0392B':'';
+    if(bad)ok=false;
+  });
+  if(!ok){(document.getElementById('f-nom').value.trim()?document.getElementById('f-tel'):document.getElementById('f-nom')).focus();return}
+  form.classList.add('sent');
+  form.querySelector('.form-ok').scrollIntoView({block:'nearest',behavior:reduceMotion?'auto':'smooth'});
+});
+
+}
 
 
 }
@@ -300,22 +346,30 @@ form.addEventListener('submit',function(e){
 
 }
 
-/* ---------- Filtres réalisations ---------- */
+/* ---------- Filtres réalisations (dropdowns) ---------- */
 (function(){
-  var bar=document.querySelector('.filter-bar');
-  if(!bar) return;
-  var pills=Array.prototype.slice.call(bar.querySelectorAll('.fpill'));
-  var cards=Array.prototype.slice.call(document.querySelectorAll('[data-cat]'));
-  pills.forEach(function(p){
-    p.addEventListener('click',function(){
-      pills.forEach(function(q){q.setAttribute('aria-pressed','false')});
-      p.setAttribute('aria-pressed','true');
-      var f=p.getAttribute('data-filter');
-      cards.forEach(function(c){
-        c.style.display=(f==='tous'||c.getAttribute('data-cat')===f)?'':'none';
-      });
+  var grid=document.getElementById('reaGrid');
+  if(!grid) return;
+  var sO=document.getElementById('fOuvrage'),sP=document.getElementById('fPrestation'),sM=document.getElementById('fMateriau'),
+      empty=document.getElementById('reaEmpty'),
+      cards=Array.prototype.slice.call(grid.querySelectorAll('.rea-card'));
+  function apply(){
+    var o=sO.value,p=sP.value,m=sM.value,n=0;
+    cards.forEach(function(c){
+      var ok=(o==='tous'||c.getAttribute('data-ouvrage')===o)&&
+             (p==='tous'||c.getAttribute('data-prestation')===p)&&
+             (m==='tous'||c.getAttribute('data-materiau')===m);
+      c.style.display=ok?'':'none';
+      if(ok)n++;
     });
-  });
+    empty.hidden=n>0;
+  }
+  function reset(){sO.value='tous';sP.value='tous';sM.value='tous';apply();}
+  document.getElementById('fValider').addEventListener('click',apply);
+  document.getElementById('fEffacer').addEventListener('click',reset);
+  var rr=document.getElementById('reaReset');
+  if(rr)rr.addEventListener('click',reset);
+})();
 
 /* ---------- Chatbot IA ---------- */
 (function(){
@@ -352,8 +406,6 @@ form.addEventListener('submit',function(e){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     document.querySelectorAll('.bg video').forEach(function(v){v.pause();});
   }
-})();
-
 })();
 
 /* ---------- Retour en haut ---------- */
@@ -364,43 +416,6 @@ form.addEventListener('submit',function(e){
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
   btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
-
-/* ---------- Chatbot IA ---------- */
-(function(){
-  var openBtn=document.getElementById('chatOpen'),panel=document.getElementById('chatPanel'),
-      closeBtn=document.getElementById('chatClose'),form=document.getElementById('chatForm'),
-      input=document.getElementById('chatInput'),msgs=document.getElementById('chatMsgs');
-  if(!openBtn||!panel||!form) return;
-  var history=[],welcomed=false;
-  function addMsg(text,who){
-    var d=document.createElement('div');d.className='msg '+who;d.textContent=text;
-    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
-  }
-  openBtn.addEventListener('click',function(){
-    panel.hidden=!panel.hidden;
-    if(!panel.hidden&&!welcomed){welcomed=true;
-      addMsg("Bonjour, je suis l'assistant Belle House. Une question sur nos constructions, l'architecture ou l'immobilier \u00e0 Niamey ?",'bot');}
-  });
-  closeBtn.addEventListener('click',function(){panel.hidden=true;});
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var t=input.value.trim();if(!t)return;
-    addMsg(t,'user');input.value='';
-    history.push({role:'user',content:t});
-    var typing=addMsg('...','bot typing');
-    fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})})
-    .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
-    .then(function(x){
-      typing.remove();
-      if(x.ok&&x.d.reply){addMsg(x.d.reply,'bot');history.push({role:'assistant',content:x.d.reply});}
-      else{addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');}
-    })
-    .catch(function(){typing.remove();addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');});
-  });
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.querySelectorAll('.bg video').forEach(function(v){v.pause();});
-  }
-})();
 
 })();
 
@@ -418,43 +433,6 @@ form.addEventListener('submit',function(e){
     document.body.classList.add('leaving');
     setTimeout(function(){window.location.href=href},300);
   });
-
-/* ---------- Chatbot IA ---------- */
-(function(){
-  var openBtn=document.getElementById('chatOpen'),panel=document.getElementById('chatPanel'),
-      closeBtn=document.getElementById('chatClose'),form=document.getElementById('chatForm'),
-      input=document.getElementById('chatInput'),msgs=document.getElementById('chatMsgs');
-  if(!openBtn||!panel||!form) return;
-  var history=[],welcomed=false;
-  function addMsg(text,who){
-    var d=document.createElement('div');d.className='msg '+who;d.textContent=text;
-    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
-  }
-  openBtn.addEventListener('click',function(){
-    panel.hidden=!panel.hidden;
-    if(!panel.hidden&&!welcomed){welcomed=true;
-      addMsg("Bonjour, je suis l'assistant Belle House. Une question sur nos constructions, l'architecture ou l'immobilier \u00e0 Niamey ?",'bot');}
-  });
-  closeBtn.addEventListener('click',function(){panel.hidden=true;});
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var t=input.value.trim();if(!t)return;
-    addMsg(t,'user');input.value='';
-    history.push({role:'user',content:t});
-    var typing=addMsg('...','bot typing');
-    fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})})
-    .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
-    .then(function(x){
-      typing.remove();
-      if(x.ok&&x.d.reply){addMsg(x.d.reply,'bot');history.push({role:'assistant',content:x.d.reply});}
-      else{addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');}
-    })
-    .catch(function(){typing.remove();addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');});
-  });
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.querySelectorAll('.bg video').forEach(function(v){v.pause();});
-  }
-})();
 
 })();
 
@@ -481,80 +459,90 @@ form.addEventListener('submit',function(e){
   },{passive:true});
   update();
 
-/* ---------- Chatbot IA ---------- */
+})();
+
+
+/* ---------- Galerie projet ---------- */
 (function(){
-  var openBtn=document.getElementById('chatOpen'),panel=document.getElementById('chatPanel'),
-      closeBtn=document.getElementById('chatClose'),form=document.getElementById('chatForm'),
-      input=document.getElementById('chatInput'),msgs=document.getElementById('chatMsgs');
-  if(!openBtn||!panel||!form) return;
-  var history=[],welcomed=false;
-  function addMsg(text,who){
-    var d=document.createElement('div');d.className='msg '+who;d.textContent=text;
-    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
+  var g=document.querySelector('.gallery');
+  if(!g||!g.getAttribute('data-images')) return;
+  var imgs=g.getAttribute('data-images').split('|'),
+      el=document.getElementById('galImg'),count=document.getElementById('galCount'),i=0;
+  function show(n){
+    i=(n+imgs.length)%imgs.length;
+    el.src=imgs[i];
+    count.textContent=(i+1)+' - '+imgs.length;
   }
-  openBtn.addEventListener('click',function(){
-    panel.hidden=!panel.hidden;
-    if(!panel.hidden&&!welcomed){welcomed=true;
-      addMsg("Bonjour, je suis l'assistant Belle House. Une question sur nos constructions, l'architecture ou l'immobilier \u00e0 Niamey ?",'bot');}
-  });
-  closeBtn.addEventListener('click',function(){panel.hidden=true;});
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var t=input.value.trim();if(!t)return;
-    addMsg(t,'user');input.value='';
-    history.push({role:'user',content:t});
-    var typing=addMsg('...','bot typing');
-    fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})})
-    .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
-    .then(function(x){
-      typing.remove();
-      if(x.ok&&x.d.reply){addMsg(x.d.reply,'bot');history.push({role:'assistant',content:x.d.reply});}
-      else{addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');}
-    })
-    .catch(function(){typing.remove();addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');});
-  });
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.querySelectorAll('.bg video').forEach(function(v){v.pause();});
-  }
+  document.getElementById('galPrev').addEventListener('click',function(){show(i-1)});
+  document.getElementById('galNext').addEventListener('click',function(){show(i+1)});
 })();
 
-})();
-
-/* ---------- Chatbot IA ---------- */
+/* ---------- Onglets ---------- */
 (function(){
-  var openBtn=document.getElementById('chatOpen'),panel=document.getElementById('chatPanel'),
-      closeBtn=document.getElementById('chatClose'),form=document.getElementById('chatForm'),
-      input=document.getElementById('chatInput'),msgs=document.getElementById('chatMsgs');
-  if(!openBtn||!panel||!form) return;
-  var history=[],welcomed=false;
-  function addMsg(text,who){
-    var d=document.createElement('div');d.className='msg '+who;d.textContent=text;
-    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
-  }
-  openBtn.addEventListener('click',function(){
-    panel.hidden=!panel.hidden;
-    if(!panel.hidden&&!welcomed){welcomed=true;
-      addMsg("Bonjour, je suis l'assistant Belle House. Une question sur nos constructions, l'architecture ou l'immobilier \u00e0 Niamey ?",'bot');}
+  var nav=document.querySelector('.tabs-nav');
+  if(!nav) return;
+  var btns=Array.prototype.slice.call(nav.querySelectorAll('.tab-btn'));
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      btns.forEach(function(x){x.setAttribute('aria-selected','false')});
+      b.setAttribute('aria-selected','true');
+      Array.prototype.forEach.call(document.querySelectorAll('.tab-panel'),function(p){p.classList.remove('active')});
+      document.getElementById('tab-'+b.getAttribute('data-tab')).classList.add('active');
+    });
   });
-  closeBtn.addEventListener('click',function(){panel.hidden=true;});
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var t=input.value.trim();if(!t)return;
-    addMsg(t,'user');input.value='';
-    history.push({role:'user',content:t});
-    var typing=addMsg('...','bot typing');
-    fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})})
-    .then(function(r){return r.json().then(function(d){return{ok:r.ok,d:d};});})
-    .then(function(x){
-      typing.remove();
-      if(x.ok&&x.d.reply){addMsg(x.d.reply,'bot');history.push({role:'assistant',content:x.d.reply});}
-      else{addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');}
-    })
-    .catch(function(){typing.remove();addMsg("Le service est en cours d'activation. \u00c9crivez-nous via la page contact, r\u00e9ponse sous 24 h.",'bot');});
-  });
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.querySelectorAll('.bg video').forEach(function(v){v.pause();});
-  }
 })();
 
+/* ---------- Recherche ---------- */
+(function(){
+  var open=document.getElementById('searchOpen'),ov=document.getElementById('searchOverlay'),
+      close=document.getElementById('searchClose'),input=document.getElementById('searchInput'),
+      res=document.getElementById('searchResults');
+  if(!open||!ov) return;
+  var index=[
+    {t:'Accueil',u:'index.html',k:'accueil btp construction niamey niger'},
+    {t:'Qui sommes-nous ?',u:'entreprise.html',k:'entreprise president moise akaba equipe approche valeurs methode implantations'},
+    {t:'Nos savoir-faire',u:'expertises.html',k:'savoir-faire expertises gros oeuvre architecture metallique beton acier'},
+    {t:'Nos réalisations',u:'realisations.html',k:'realisations projets villa immeuble hangar chantier filtre'},
+    {t:'Villa duplex',u:'realisation-villa-duplex.html',k:'villa duplex residentiel'},
+    {t:'Villa contemporaine',u:'realisation-villa-contemporaine.html',k:'villa contemporaine residentiel'},
+    {t:'Immeuble R+3',u:'realisation-immeuble-r3.html',k:'immeuble collectif r+3'},
+    {t:'Chantier gros œuvre R+4',u:'realisation-chantier-r4.html',k:'chantier gros oeuvre collectif'},
+    {t:'Hangar métallique',u:'realisation-hangar-metallique.html',k:'hangar metallique industriel acier'},
+    {t:'Atelier de construction métallique',u:'realisation-atelier-acier.html',k:'atelier acier metallique industriel'},
+    {t:'Nos engagements',u:'engagements.html',k:'engagements vision innovation rse certifications climat'},
+    {t:'Médias',u:'medias.html',k:'medias presse kit logo actualites communication'},
+    {t:'Recrutement',u:'recrutement.html',k:'recrutement emploi candidature carriere'},
+    {t:'Immobilier',u:'immobilier.html',k:'immobilier terrain villa investissement'},
+    {t:'Contact',u:'contact.html',k:'contact devis telephone message adresse faq'}
+  ];
+  function toggle(o){
+    ov.classList.toggle('open',o);
+    document.body.style.overflow=o?'hidden':'';
+    if(o){input.value='';res.innerHTML='';setTimeout(function(){input.focus()},80);}
+  }
+  open.addEventListener('click',function(){toggle(true)});
+  close.addEventListener('click',function(){toggle(false)});
+  ov.addEventListener('click',function(e){if(e.target===ov)toggle(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.classList.contains('open'))toggle(false)});
+  input.addEventListener('input',function(){
+    var q=input.value.trim().toLowerCase();
+    if(q.length<2){res.innerHTML='';return;}
+    var hits=index.filter(function(p){return (p.t+' '+p.k).toLowerCase().indexOf(q)>-1;}).slice(0,8);
+    res.innerHTML=hits.length
+      ? hits.map(function(p){return '<a href="'+p.u+'"><span>'+p.t+'</span><small>Page</small></a>'}).join('')
+      : '<p style="color:#fff;padding:13px 6px">Aucun résultat pour cette recherche.</p>';
+  });
+})();
+
+/* ---------- Cookies ---------- */
+(function(){
+  var b=document.getElementById('cookieBanner');
+  if(!b) return;
+  try{if(localStorage.getItem('bh_cookies')==='1')return;}catch(e){return;}
+  setTimeout(function(){b.classList.add('show')},1200);
+  document.getElementById('cookieOk').addEventListener('click',function(){
+    try{localStorage.setItem('bh_cookies','1');}catch(e){}
+    b.classList.remove('show');
+  });
+})();
 })();

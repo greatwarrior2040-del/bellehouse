@@ -32,13 +32,16 @@
   <nav aria-label="Navigation principale">
     <ul class="nav-links">
       <li><a href="entreprise.html">Qui sommes-nous ?</a></li>
-      <li><a href="expertises.html">Nos expertises</a></li>
+      <li><a href="expertises.html">Nos savoir-faire</a></li>
       <li><a href="realisations.html">Nos réalisations</a></li>
       <li><a href="engagements.html" aria-current="page">Nos engagements</a></li>
       <li><a href="immobilier.html">Immobilier</a></li>
       <li><a href="recrutement.html">Recrutement</a></li>
+      <li><a href="medias.html">Médias</a></li>
     </ul>
   </nav>
+  <span class="nav-lang">FR</span>
+  <button class="nav-search" id="searchOpen" aria-label="Rechercher"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
   <a class="btn" href="contact.html">Demander un devis</a>
   <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -47,11 +50,12 @@
 
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <a href="entreprise.html">Qui sommes-nous ?</a>
-  <a href="expertises.html">Nos expertises</a>
+  <a href="expertises.html">Nos savoir-faire</a>
   <a href="realisations.html">Nos réalisations</a>
   <a href="engagements.html">Nos engagements</a>
   <a href="immobilier.html">Immobilier</a>
   <a href="recrutement.html">Recrutement</a>
+  <a href="medias.html">Médias</a>
   <a href="contact.html">Contact</a>
   <a href="contact.html" style="color:var(--bh)">Demander un devis</a>
 </div>
@@ -70,59 +74,96 @@
 
   <section class="sec">
     <div class="wrap">
-      <nav class="anchor-list" aria-label="Rubriques de la page" data-reveal>
-        <a href="#climat">Construire pour le climat</a>
-        <a href="#chantiers">Des chantiers responsables</a>
-        <a href="#transmission">Transmettre les savoir-faire</a>
-      </nav>
-    </div>
-  </section>
+      <div class="tabs-nav" role="tablist" aria-label="Nos engagements" data-reveal>
+        <button class="tab-btn" role="tab" aria-selected="true" data-tab="vision" id="tabbtn-vision">Notre vision</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="innovation" id="tabbtn-innovation">Innovation</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="rse" id="tabbtn-rse">Engagements RSE</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="certifs" id="tabbtn-certifs">Certifications</button>
+      </div>
 
-  <section class="sec" id="climat" style="padding-top:0">
-    <div class="wrap">
-      <div class="detail" data-reveal>
-        <div class="d-visual"><img src="assets/rea-immeuble.jpg" alt="Immeuble avec moucharabieh favorisant la ventilation naturelle" loading="lazy" decoding="async"></div>
-        <div class="d-body">
-          <p class="num">01</p>
-          <h2>Construire pour le climat</h2>
-          <p>Au Niger, un bâtiment réussi est un bâtiment qui respire. Nous concevons des ouvrages adaptés à la chaleur : moins de climatisation, plus de confort, des factures allégées.</p>
-          <ul class="check">
-            <li>Orientation et protection solaire étudiées</li>
-            <li>Ventilation naturelle traversante</li>
-            <li>Brise-soleil et moucharabieh</li>
-            <li>Matériaux choisis pour durer sous le soleil</li>
-          </ul>
+      <div class="tab-panel active" id="tab-vision" role="tabpanel" aria-labelledby="tabbtn-vision">
+        <div class="detail" data-reveal>
+          <div class="d-visual"><img src="assets/rea-immeuble.jpg" alt="Immeuble conçu pour le climat de Niamey" loading="lazy" decoding="async"></div>
+          <div class="d-body">
+            <p class="num">01</p>
+            <h2>Bâtisseur de Confiance</h2>
+            <p>Notre vision est simple : conjuguer performance et construction durable, en partageant cet engagement avec nos équipes, nos clients et nos partenaires. Au Niger, un bâtiment réussi est un bâtiment qui respire.</p>
+            <ul class="check">
+              <li>Quatre métiers intégrés sous un même toit</li>
+              <li>Un seul interlocuteur, de l'étude à la remise des clés</li>
+              <li>Des ouvrages pensés pour durer sous le soleil</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="detail flip" id="chantiers" data-reveal>
-        <div class="d-visual"><img src="assets/hero-act1.jpg" alt="Chantier Belle House organisé à Niamey" loading="lazy" decoding="async"></div>
-        <div class="d-body">
-          <p class="num">02</p>
-          <h2>Des chantiers responsables</h2>
-          <p>Un chantier propre et sûr, c'est un chantier qui avance bien. Nous appliquons des règles simples et strictes sur chacun de nos sites.</p>
-          <ul class="check">
-            <li>Sécurité des équipes, sans exception</li>
-            <li>Tri et évacuation des déchets de chantier</li>
-            <li>Économie d'eau sur site</li>
-            <li>Limitation des nuisances pour le voisinage</li>
-          </ul>
+
+      <div class="tab-panel" id="tab-innovation" role="tabpanel" aria-labelledby="tabbtn-innovation">
+        <div class="detail flip" data-reveal>
+          <div class="d-visual"><img src="assets/hero-act4.jpg" alt="Villa Belle House au crépuscule" loading="lazy" decoding="async"></div>
+          <div class="d-body">
+            <p class="num">02</p>
+            <h2>L'innovation au service du climat</h2>
+            <p>Innover, pour nous, c'est d'abord construire juste : des bâtiments adaptés à la chaleur du Sahel, moins de climatisation, plus de confort, des factures allégées.</p>
+            <ul class="check">
+              <li>Bureau d'études intégré : plans optimisés dès la conception</li>
+              <li>Orientation et protection solaire étudiées</li>
+              <li>Ventilation naturelle traversante, brise-soleil</li>
+              <li>Suivi rigoureux de chaque chantier</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="detail" id="transmission" data-reveal>
-        <div class="d-visual"><img src="assets/hero-act3.jpg" alt="Transmission du savoir-faire dans l'atelier Belle House" loading="lazy" decoding="async"></div>
-        <div class="d-body">
-          <p class="num">03</p>
-          <h2>Transmettre les savoir-faire</h2>
-          <p>Construire durable, c'est aussi former durablement. Nous accueillons des jeunes en apprentissage et faisons monter en compétence nos équipes, chantier après chantier.</p>
-          <ul class="check">
-            <li>Apprentissage et stages pour les jeunes</li>
-            <li>Formation continue des équipes</li>
-            <li>Montée en compétence locale</li>
-          </ul>
-          <a class="btn" href="recrutement.html">Rejoindre l'aventure</a>
+
+      <div class="tab-panel" id="tab-rse" role="tabpanel" aria-labelledby="tabbtn-rse">
+        <div class="detail" data-reveal>
+          <div class="d-visual"><img src="assets/hero-act1.jpg" alt="Chantier Belle House organisé à Niamey" loading="lazy" decoding="async"></div>
+          <div class="d-body">
+            <p class="num">03</p>
+            <h2>Des chantiers responsables</h2>
+            <p>Un chantier propre et sûr, c'est un chantier qui avance bien. Nous appliquons des règles simples et strictes sur chacun de nos sites.</p>
+            <ul class="check">
+              <li>Sécurité des équipes, sans exception</li>
+              <li>Tri et évacuation des déchets de chantier</li>
+              <li>Économie d'eau sur site</li>
+              <li>Limitation des nuisances pour le voisinage</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail flip" data-reveal>
+          <div class="d-visual"><img src="assets/hero-act3.jpg" alt="Transmission du savoir-faire dans l'atelier Belle House" loading="lazy" decoding="async"></div>
+          <div class="d-body">
+            <p class="num">04</p>
+            <h2>Transmettre les savoir-faire</h2>
+            <p>Construire durable, c'est aussi former durablement. Nous accueillons des jeunes en apprentissage et faisons monter en compétence nos équipes, chantier après chantier.</p>
+            <ul class="check">
+              <li>Apprentissage et stages pour les jeunes</li>
+              <li>Formation continue des équipes</li>
+              <li>Montée en compétence locale</li>
+            </ul>
+            <a class="btn" href="recrutement.html">Rejoindre l'aventure</a>
+          </div>
         </div>
       </div>
-      <div class="cta-band" data-reveal style="margin-top:20px">
+
+      <div class="tab-panel" id="tab-certifs" role="tabpanel" aria-labelledby="tabbtn-certifs">
+        <p class="sub" style="max-width:640px" data-reveal>La qualité se prouve. Nos qualifications, assurances et références sont présentées à chaque appel d'offres et disponibles sur simple demande. Exigez-les : c'est votre droit.</p>
+        <div class="cert-grid">
+          <div class="cert-card" data-reveal>
+            <h3>Qualifications</h3>
+            <p>Nos qualifications professionnelles sont présentées à chaque appel d'offres, avec les attestations correspondantes.</p>
+          </div>
+          <div class="cert-card" data-reveal style="--rd:.08s">
+            <h3>Assurances</h3>
+            <p>Chaque chantier est couvert de bout en bout : responsabilité civile et garanties chantier, documents à l'appui.</p>
+          </div>
+          <div class="cert-card" data-reveal style="--rd:.16s">
+            <h3>Références</h3>
+            <p>Fiches détaillées de nos réalisations (plans, surfaces, délais) disponibles sur simple demande via la page contact.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-band" data-reveal style="margin-top:44px">
         <h2>Un projet en accord avec ces engagements ?</h2>
         <p>Parlons-en, nous répondons sous 24 h ouvrées.</p>
         <a class="btn" href="contact.html">Demander un devis</a>
@@ -137,29 +178,32 @@
     <div>
       <a class="foot-logo-badge" href="index.html" aria-label="Belle House Niger, accueil"><img src="assets/logo-bellehouse.png" alt="Belle House Niger, Bâtisseur de Confiance" width="105" height="125"></a>
       <p class="foot-desc">Belle House Niger réunit quatre métiers sous un même toit : le gros œuvre, l'architecture, l'immobilier et la construction métallique. Un seul interlocuteur, de l'étude à la remise des clés.</p>
+      <p class="foot-desc" style="margin-top:14px">Président : Moise AKABA · Koubia, Niamey, Niger</p>
     </div>
     <div class="foot-cols">
       <div>
-        <h4>L'entreprise</h4>
+        <h4>Qui sommes-nous ?</h4>
         <ul>
-          <li><a href="entreprise.html">Qui sommes-nous ?</a></li>
+          <li><a href="entreprise.html">L'entreprise</a></li>
           <li><a href="engagements.html">Nos engagements</a></li>
           <li><a href="recrutement.html">Recrutement</a></li>
-          <li><a href="immobilier.html">Immobilier</a></li>
+          <li><a href="medias.html">Médias</a></li>
         </ul>
       </div>
       <div>
-        <h4>Nos expertises</h4>
+        <h4>Nos savoir-faire</h4>
         <ul>
+          <li><a href="realisations.html">Nos réalisations</a></li>
           <li><a href="expertises.html">BTP · Gros œuvre</a></li>
           <li><a href="expertises.html">Architecture</a></li>
           <li><a href="expertises.html">Construction métallique</a></li>
-          <li><a href="realisations.html">Nos réalisations</a></li>
+          <li><a href="immobilier.html">Immobilier</a></li>
         </ul>
       </div>
       <div>
         <h4>Contact</h4>
         <ul>
+          <li><a href="tel:+22792085050">+227 92 08 50 50</a></li>
           <li><a href="contact.html">Demander un devis</a></li>
           <li><a href="contact.html">Questions fréquentes</a></li>
           <li><a href="mentions-legales.html">Mentions légales</a></li>
@@ -169,10 +213,20 @@
   </div>
   <div class="foot-bottom">
     <a href="mentions-legales.html">Mentions légales</a>
-    <span>© Belle House Niger 2026 · Niamey, Niger</span>
+    <span>© Belle House Niger 2026 · Koubia, Niamey, Niger</span>
   </div>
 </footer>
 
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Recherche">
+  <button class="search-close" id="searchClose" aria-label="Fermer la recherche">&times;</button>
+  <input type="search" id="searchInput" placeholder="Rechercher&hellip;" aria-label="Rechercher" autocomplete="off">
+  <div class="search-results" id="searchResults"></div>
+</div>
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Gestion des cookies">
+  <h3>Gestion des cookies</h3>
+  <p>Nous utilisons des cookies techniques pour le bon fonctionnement du site. En poursuivant votre navigation, vous les acceptez.</p>
+  <button id="cookieOk">OK pour moi</button>
+</div>
 <nav class="cta-dock" aria-label="Contact rapide">
   <button class="dock-btn" id="chatOpen" aria-haspopup="dialog">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>Chatbot IA</span>
@@ -189,7 +243,6 @@
   <div class="chat-msgs" id="chatMsgs"></div>
   <form class="chat-form" id="chatForm"><input id="chatInput" type="text" placeholder="Écrivez votre message&hellip;" autocomplete="off" aria-label="Votre message"><button type="submit">Envoyer</button></form>
 </div>
-<button class="to-top" aria-label="Retour en haut">&uarr;</button>
 <button class="to-top" id="toTop" aria-label="Retour en haut de page"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
 <script src="js/main.js" defer></script>
